@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹 채팅</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        #chatbox {
+            width: 400px;
+            max-width: 100%;
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        #message {
+            width: calc(100% - 20px);
+            margin-top: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        #sendBtn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        #sendBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="chatbox"></div>
+    <textarea id="message" placeholder="메시지를 입력하세요"></textarea>
+    <button id="sendBtn">전송</button>
+
+    <script>
+        var chatbox = document.getElementById('chatbox');
+        var messageInput = document.getElementById('message');
+        var sendBtn = document.getElementById('sendBtn');
+
+        // 가짜 데이터 (실제로는 서버와 통신하여 채팅 메시지를 주고받아야 합니다)
+        var fakeMessages = [
+            { name: 'User1', message: '안녕하세요!' },
+            { name: 'User2', message: '안녕하세요! 반가워요.' },
+            { name: 'User1', message: '오늘 날씨가 참 좋네요.' },
+            { name: 'User2', message: '네, 맑은 날씨입니다.' }
+        ];
+
+        // 채팅창에 가짜 메시지들을 출력하는 함수
+        function displayMessages() {
+            chatbox.innerHTML = ''; // 채팅창 비우기
+            fakeMessages.forEach(function(msg) {
+                var messageElement = document.createElement('div');
+                messageElement.innerText = msg.name + ': ' + msg.message;
+                chatbox.appendChild(messageElement);
+            });
+            // 스크롤을 맨 아래로 이동
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        // 메시지 전송 버튼 클릭 이벤트 핸들러
+        sendBtn.addEventListener('click', function() {
+            var message = messageInput.value;
+            if (message.trim() !== '') {
+                // 채팅창에 메시지 추가
+                var messageElement = document.createElement('div');
+                messageElement.innerText = '나: ' + message;
+                chatbox.appendChild(messageElement);
+                // 입력창 비우기
+                messageInput.value = '';
+                // 스크롤을 맨 아래로 이동
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+        });
+
+        // 초기화
+        displayMessages();
+    </script>
+</body>
+</html>
